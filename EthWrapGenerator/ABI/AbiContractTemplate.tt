@@ -1,0 +1,83 @@
+﻿<#@ template language="C#" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="System.Linq" #>
+using System.Numerics;
+using Nethereum.Contracts;
+using Nethereum.ABI.FunctionEncoding.Attributes;
+using Nethereum.Web3;
+
+namespace <#= Context.ContractModel.Namespace #>
+{
+    public class Abi<#= Context.ContractModel.ContractName #> {
+
+        private readonly Web3 _web3;
+        private readonly string _address;
+
+        public Abi<#= Context.ContractModel.ContractName #>(Web3 web3, string address){
+            _web3 = web3;
+            _address = address;
+        }
+        #region structures
+
+        <#foreach (var abiStruct in Context.Structs) {#>
+            public class <#= abiStruct.Name #> {
+                <#foreach (var property in abiStruct.Parameters) {#>
+
+                    [Parameter("<#= property.Type #>", null, <#= property.Order #>, <#= property.Indexed.ToString().ToLower() #>)]
+                    public <#= property.SystemType #> <#= property.Name #> {get; set;}
+                <#}#>
+            }
+        <#}#>
+
+        #endregion
+
+        #region call functions
+
+        <#foreach (var callFunc in Context.CallFunctions) {#>
+            
+            [Function("<#= callFunc.Name #>")]
+            public class <#= callFunc.SystemName #>Request : FunctionMessage
+            {
+               <#foreach (var property in callFunc.RequestModel) {#>
+
+                    [Parameter("<#= property.Type #>", null, <#= property.Order #>, <#= property.Indexed.ToString().ToLower() #>)]
+                    public <#= property.SystemType #> <#= property.Name #> {get; set;}
+                <#}#>
+            }
+            
+
+            [FunctionOutput]
+            public class <#= callFunc.SystemName #>Response : IFunctionOutputDTO
+            {
+                <#foreach (var property in callFunc.ResponseModel) {#>
+
+                    [Parameter("<#= property.Type #>", null, <#= property.Order #>, <#= property.Indexed.ToString().ToLower() #>)]
+                    public <#= property.SystemType #> <#= property.Name #> {get; set;}
+                <#}#>
+            }
+            
+            public async Task<<#= callFunc.SystemName #>Response> <#= callFunc.SystemName #>(<#= callFunc.SystemName #>Request request) {
+
+                var handler = _web3.Eth.GetContractQueryHandler<<#= callFunc.SystemName #>Request>();
+                var result = await handler.QueryDeserializingToObjectAsync<<#= callFunc.SystemName #>Response>(request, _address);
+                return result;
+            }
+
+
+        <#}#>
+
+        #endregion
+
+        #region send functions
+        #endregion
+
+    }
+}
+<#+
+
+    public AbiContractContext Context { get; set; }
+    
+    
+    
+#>
