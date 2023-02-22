@@ -9,7 +9,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.4.0" />
-    <PackageReference Include="System.CodeDom" Version="7.0.0" GeneratePathProperty="true" PrivateAssets="all"/>
+    <PackageReference Include="System.CodeDom" Version="7.0.0" GeneratePathProperty="true" PrivateAssets="all" />
     <PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="3.3.4">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -21,6 +21,7 @@
     <PackageReference Include="Nethereum.Web3" Version="4.13.0" GeneratePathProperty="true" PrivateAssets="all" />
     <PackageReference Include="Nethereum.ABI" Version="4.13.0" GeneratePathProperty="true" PrivateAssets="all" />
     <PackageReference Include="Nethereum.Util" Version="4.13.0" GeneratePathProperty="true" PrivateAssets="all" />
+    <PackageReference Include="Nethereum.Hex" Version="4.13.0" GeneratePathProperty="true" PrivateAssets="all" />
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" GeneratePathProperty="true" PrivateAssets="all" />
   </ItemGroup>
 
@@ -33,6 +34,7 @@
       <TargetPathWithTargetPlatformMoniker Include="$(PKGNethereum_Web3)\lib\netstandard2.0\Nethereum.Web3.dll" IncludeRuntimeDependency="false" />
       <TargetPathWithTargetPlatformMoniker Include="$(PKGNethereum_ABI)\lib\netstandard2.0\Nethereum.ABI.dll" IncludeRuntimeDependency="false" />
       <TargetPathWithTargetPlatformMoniker Include="$(PKGNethereum_Util)\lib\netstandard2.0\Nethereum.Util.dll" IncludeRuntimeDependency="false" />
+      <TargetPathWithTargetPlatformMoniker Include="$(PKGNethereum_Hex)\lib\netstandard2.0\Nethereum.Hex.dll" IncludeRuntimeDependency="false" />
       <TargetPathWithTargetPlatformMoniker Include="$(PKGNewtonsoft_Json)\lib\netstandard2.0\Newtonsoft.Json.dll" IncludeRuntimeDependency="false" />
       <TargetPathWithTargetPlatformMoniker Include="$(PKGSystem_CodeDom)\lib\netstandard2.0\System.CodeDom.dll" IncludeRuntimeDependency="false" />
     </ItemGroup>

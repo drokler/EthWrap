@@ -29,7 +29,6 @@
 
     <ItemGroup>
       <None Remove="NewFile1.txt" />
-      <EmbeddedResource Include="NewFile1.txt" />
       <None Remove="era\era7Card.abi" />
       <EmbeddedResource Include="era\era7Card.abi" />
     </ItemGroup>

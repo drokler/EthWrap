@@ -29,13 +29,14 @@ namespace EthWrapGenerator.ABI
     public class AbiContractFunctionModel
     {
         public string Name { get; set; }
+        public string ShaSignature { get; set; }
         public string SystemName { get; set; }
         
         public bool NeedRequest { get; set; }
         
         public AbiContractParameterModel[] RequestModel { get; set; }
         public AbiContractParameterModel[] ResponseModel { get; set; }
-        
+       
     }
     
 

@@ -6,6 +6,7 @@ using System.Numerics;
 using Nethereum.Contracts;
 using Nethereum.ABI.FunctionEncoding.Attributes;
 using Nethereum.Web3;
+using Nethereum.RPC.Eth.DTOs; 
 
 namespace <#= Context.ContractModel.Namespace #>
 {
@@ -70,6 +71,27 @@ namespace <#= Context.ContractModel.Namespace #>
         #endregion
 
         #region send functions
+            <#foreach (var callFunc in Context.SendFunctions) {#>
+            
+            [Function("<#= callFunc.Name #>")]
+            public class <#= callFunc.SystemName #>Request : FunctionMessage
+            {
+               <#foreach (var property in callFunc.RequestModel) {#>
+
+                    [Parameter("<#= property.Type #>", null, <#= property.Order #>, <#= property.Indexed.ToString().ToLower() #>)]
+                    public <#= property.SystemType #> <#= property.Name #> {get; set;}
+                <#}#>
+            }
+                        
+            public async Task<TransactionReceipt> <#= callFunc.SystemName #>(<#= callFunc.SystemName #>Request request) {
+
+                var handler = _web3.Eth.GetContractTransactionHandler<<#= callFunc.SystemName #>Request>();
+                var receipt = await handler.SendRequestAndWaitForReceiptAsync(_address, request);
+                return receipt;
+            }
+
+
+        <#}#>
         #endregion
 
     }

@@ -31,20 +31,22 @@ namespace EthWrapGenerator.ABI
             CallFunctions = new List<AbiContractFunctionModel>();
             SendFunctions = new List<AbiContractFunctionModel>();
             PrepareTupleTypes();
-            PrepareCallFunctions();
+            PrepareFunctions(true, CallFunctions);
+            PrepareFunctions(false, SendFunctions);
         }
 
-        private void PrepareCallFunctions()
+        private void PrepareFunctions(bool isConstants, List<AbiContractFunctionModel> source)
         {
-            var constFunctions = _contractAbi.Functions.Where(t => t.Constant).ToList();
+            var constFunctions = _contractAbi.Functions.Where(t => t.Constant == isConstants).ToList();
             foreach (var function in constFunctions)
             {
                 var needRequest = function.InputParameters.Any();
                 
-                CallFunctions.Add(new AbiContractFunctionModel()
+                source.Add(new AbiContractFunctionModel()
                 {
                     Name = function.Name,
-                    SystemName = GetValidPropertyName(function.Name),
+                    ShaSignature = function.Sha3Signature,
+                    SystemName = GetValidPropertyName(function.Name) + function.Sha3Signature,
                     NeedRequest = needRequest,
                     RequestModel = function.InputParameters.Select(t => new AbiContractParameterModel()
                     {
