@@ -131,6 +131,16 @@ public interface ISolidityListener : IParseTreeListener {
 	/// <param name="context">The parse tree.</param>
 	void ExitNatSpec([NotNull] SolidityParser.NatSpecContext context);
 	/// <summary>
+	/// Enter a parse tree produced by <see cref="SolidityParser.contractType"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterContractType([NotNull] SolidityParser.ContractTypeContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="SolidityParser.contractType"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitContractType([NotNull] SolidityParser.ContractTypeContext context);
+	/// <summary>
 	/// Enter a parse tree produced by <see cref="SolidityParser.contractDefinition"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
@@ -360,6 +370,16 @@ public interface ISolidityListener : IParseTreeListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	void ExitTypeName([NotNull] SolidityParser.TypeNameContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="SolidityParser.arrayTypeName"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterArrayTypeName([NotNull] SolidityParser.ArrayTypeNameContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="SolidityParser.arrayTypeName"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitArrayTypeName([NotNull] SolidityParser.ArrayTypeNameContext context);
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="SolidityParser.userDefinedTypeName"/>.
 	/// </summary>

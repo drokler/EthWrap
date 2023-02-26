@@ -25,6 +25,13 @@ namespace EthWrapGenerator.ABI
         public bool Indexed { get; set; }
         public string SystemType { get; set; }
     }
+
+    public class AbiContractEventModel
+    {
+        public string Name { get; set; }
+        public string SystemName { get; set; }
+        public AbiContractParameterModel[] Parameters { get; set; }
+    }
     
     public class AbiContractFunctionModel
     {

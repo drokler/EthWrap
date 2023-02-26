@@ -92,6 +92,12 @@ public interface ISolidityVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <return>The visitor result.</return>
 	Result VisitNatSpec([NotNull] SolidityParser.NatSpecContext context);
 	/// <summary>
+	/// Visit a parse tree produced by <see cref="SolidityParser.contractType"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitContractType([NotNull] SolidityParser.ContractTypeContext context);
+	/// <summary>
 	/// Visit a parse tree produced by <see cref="SolidityParser.contractDefinition"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
@@ -229,6 +235,12 @@ public interface ISolidityVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
 	Result VisitTypeName([NotNull] SolidityParser.TypeNameContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="SolidityParser.arrayTypeName"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitArrayTypeName([NotNull] SolidityParser.ArrayTypeNameContext context);
 	/// <summary>
 	/// Visit a parse tree produced by <see cref="SolidityParser.userDefinedTypeName"/>.
 	/// </summary>

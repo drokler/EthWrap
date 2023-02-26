@@ -3,10 +3,11 @@
 <#@ import namespace="System.Collections.Generic" #>
 <#@ import namespace="System.Linq" #>
 using System.Numerics;
-using Nethereum.Contracts;
 using Nethereum.ABI.FunctionEncoding.Attributes;
+using Nethereum.BlockchainProcessing.Processor;
+using Nethereum.Contracts;
+using Nethereum.RPC.Eth.DTOs;
 using Nethereum.Web3;
-using Nethereum.RPC.Eth.DTOs; 
 
 namespace <#= Context.ContractModel.Namespace #>
 {
@@ -32,6 +33,22 @@ namespace <#= Context.ContractModel.Namespace #>
         <#}#>
 
         #endregion
+
+        #region events 
+      
+        <#foreach (var eventModel in Context.Events) {#>
+
+            [Event("<#= eventModel.Name #>")]
+            public class <#= eventModel.SystemName #>Event : IEventDTO
+            {
+                <#foreach (var property in eventModel.Parameters) {#>
+
+                    [Parameter("<#= property.Type #>", null, <#= property.Order #>, <#= property.Indexed.ToString().ToLower() #>)]
+                    public <#= property.SystemType #> <#= property.Name #> {get; set;}
+                <#}#>
+            }
+         <#}#>
+         #endregion
 
         #region call functions
 
@@ -71,6 +88,55 @@ namespace <#= Context.ContractModel.Namespace #>
         #endregion
 
         #region send functions
+
+             private static Dictionary<string, FunctionBuilderBase> _builders = new Dictionary<string, FunctionBuilderBase>()
+            {
+               <#foreach (var callFunc in Context.SendFunctions) {#>
+                    { "<#= callFunc.ShaSignature #>", new FunctionBuilder<<#= callFunc.SystemName #>Request>(null)},
+               <#}#>
+            };
+
+
+            private static Dictionary<string, Func<string, FunctionMessage>> _buildAction = new()
+            {
+                  <#foreach (var callFunc in Context.SendFunctions) {#>
+                    { "<#= callFunc.ShaSignature #>", (str) =>
+                        {
+                            var builder = (FunctionBuilder<<#= callFunc.SystemName #>Request>)_builders["<#= callFunc.ShaSignature #>"];
+                            return builder.DecodeFunctionInput(new <#= callFunc.SystemName #>Request(), str);
+                        }
+                    },
+                  <#}#>
+            };
+
+                public async Task<List<FunctionMessage>> GetAllFunctions(ulong blockBefore, CancellationToken cancellationToken = default)
+                {
+                    
+                    var toBlock = (ulong) (await _web3.Eth.Blocks.GetBlockNumber.SendRequestAsync()).Value;
+                    var fromBlock = toBlock - blockBefore;
+                    
+                   return await GetAllFunctions(fromBlock, toBlock, cancellationToken);
+               }
+
+             public async Task<List<FunctionMessage>> GetAllFunctions(ulong fromBlock, ulong toBlock, CancellationToken cancellationToken = default)
+                {
+                    var ret = new List<FunctionMessage>();
+                                        
+                    var processor = _web3.Processing.Blocks.CreateBlockProcessor(steps =>
+                    {
+                        steps.TransactionStep.SetMatchCriteria(t => t.Transaction.IsTo(_address));
+                        steps.TransactionStep.AddSynchronousProcessorHandler(t =>
+                        {
+                            var txHex = t.Transaction.Input.Substring(2, 8);
+                            ret.Add(_buildAction[txHex](t.Transaction.Input));
+                        });
+
+                    });
+                    await processor.ExecuteAsync(new BigInteger(toBlock), cancellationToken, new BigInteger(fromBlock));
+
+                    return ret;
+               }
+
             <#foreach (var callFunc in Context.SendFunctions) {#>
             
             [Function("<#= callFunc.Name #>")]

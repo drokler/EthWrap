@@ -42,8 +42,13 @@ natSpec
   : NatSpecSingleLine
   | NatSpecMultiLine ;
 
+contractType 
+  : 'contract'
+  | 'interface'
+  | 'library';
+
 contractDefinition
-  : natSpec? ( 'contract' | 'interface' | 'library' ) identifier
+  : natSpec? AbstractKeyword? contractType identifier
     ( 'is' inheritanceSpecifier (',' inheritanceSpecifier )* )?
     '{' contractPart* '}' ;
 
@@ -125,10 +130,13 @@ typeName
   : elementaryTypeName
   | userDefinedTypeName
   | mapping
-  | typeName '[' expression? ']'
+  | arrayTypeName
   | functionTypeName
   | 'address' 'payable' ;
-
+  
+arrayTypeName 
+  : (elementaryTypeName | userDefinedTypeName) '[' expression? ']';
+  
 userDefinedTypeName
   : identifier ( '.' identifier )* ;
 
@@ -401,8 +409,7 @@ HexCharacter
   : [0-9A-Fa-f] ;
 
 ReservedKeyword
-  : 'abstract'
-  | 'after'
+  : 'after'
   | 'case'
   | 'catch'
   | 'default'
@@ -432,6 +439,7 @@ PublicKeyword : 'public' ;
 PureKeyword : 'pure' ;
 TypeKeyword : 'type' ;
 ViewKeyword : 'view' ;
+AbstractKeyword : 'abstract' ;
 
 Identifier
   : IdentifierStart IdentifierPart* ;

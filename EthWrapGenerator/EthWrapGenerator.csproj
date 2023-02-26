@@ -46,6 +46,10 @@
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>AbiContractTemplate.cs</LastGenOutput>
     </None>
+    <None Update="Solidity\SolidityContractTemplate.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>SolidityContractTemplate.cs</LastGenOutput>
+    </None>
   </ItemGroup>
 
 
@@ -59,6 +63,11 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>AbiContractTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Solidity\SolidityContractTemplate.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SolidityContractTemplate.tt</DependentUpon>
     </Compile>
   </ItemGroup>
 

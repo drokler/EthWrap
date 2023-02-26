@@ -156,6 +156,18 @@ public partial class SolidityBaseListener : ISolidityListener {
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitNatSpec([NotNull] SolidityParser.NatSpecContext context) { }
 	/// <summary>
+	/// Enter a parse tree produced by <see cref="SolidityParser.contractType"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterContractType([NotNull] SolidityParser.ContractTypeContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="SolidityParser.contractType"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitContractType([NotNull] SolidityParser.ContractTypeContext context) { }
+	/// <summary>
 	/// Enter a parse tree produced by <see cref="SolidityParser.contractDefinition"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
@@ -431,6 +443,18 @@ public partial class SolidityBaseListener : ISolidityListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitTypeName([NotNull] SolidityParser.TypeNameContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="SolidityParser.arrayTypeName"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterArrayTypeName([NotNull] SolidityParser.ArrayTypeNameContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="SolidityParser.arrayTypeName"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitArrayTypeName([NotNull] SolidityParser.ArrayTypeNameContext context) { }
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="SolidityParser.userDefinedTypeName"/>.
 	/// <para>The default implementation does nothing.</para>

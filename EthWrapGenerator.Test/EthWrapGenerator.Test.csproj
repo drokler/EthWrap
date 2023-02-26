@@ -31,6 +31,30 @@
       <None Remove="NewFile1.txt" />
       <None Remove="era\era7Card.abi" />
       <EmbeddedResource Include="era\era7Card.abi" />
+      <None Remove="biswapAuction\Address.sol" />
+      <EmbeddedResource Include="biswapAuction\Address.sol" />
+      <None Remove="biswapAuction\SafeERC20.sol" />
+      <EmbeddedResource Include="biswapAuction\SafeERC20.sol" />
+      <None Remove="biswapAuction\ReentrancyGuard.sol" />
+      <EmbeddedResource Include="biswapAuction\ReentrancyGuard.sol" />
+      <None Remove="biswapAuction\Pausable.sol" />
+      <EmbeddedResource Include="biswapAuction\Pausable.sol" />
+      <None Remove="biswapAuction\Ownable.sol" />
+      <EmbeddedResource Include="biswapAuction\Ownable.sol" />
+      <None Remove="biswapAuction\IERC721Receiver.sol" />
+      <EmbeddedResource Include="biswapAuction\IERC721Receiver.sol" />
+      <None Remove="biswapAuction\IERC721.sol" />
+      <EmbeddedResource Include="biswapAuction\IERC721.sol" />
+      <None Remove="biswapAuction\IERC165.sol" />
+      <EmbeddedResource Include="biswapAuction\IERC165.sol" />
+      <None Remove="biswapAuction\IERC20.sol" />
+      <EmbeddedResource Include="biswapAuction\IERC20.sol" />
+      <None Remove="biswapAuction\Context.sol" />
+      <EmbeddedResource Include="biswapAuction\Context.sol" />
+      <None Remove="biswapAuction\biswap.abi" />
+      <EmbeddedResource Include="biswapAuction\biswap.abi" />
+      <None Remove="biswapAuction\AuctionNFT.sol" />
+      <EmbeddedResource Include="biswapAuction\AuctionNFT.sol" />
     </ItemGroup>
 
 </Project>

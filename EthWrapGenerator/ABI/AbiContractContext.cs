@@ -12,6 +12,7 @@ namespace EthWrapGenerator.ABI
         public ContractModel ContractModel { get; }
         public List<AbiContractFunctionModel> CallFunctions { get;  }
         public List<AbiContractFunctionModel> SendFunctions { get;  }
+        public List<AbiContractEventModel> Events { get; set; }
 
         public List<AbiContractStructModel> Structs => _structs.Values.ToList();
         private readonly ContractABI _contractAbi;
@@ -30,11 +31,35 @@ namespace EthWrapGenerator.ABI
             _structs = new Dictionary<string, AbiContractStructModel>();
             CallFunctions = new List<AbiContractFunctionModel>();
             SendFunctions = new List<AbiContractFunctionModel>();
+            Events = new List<AbiContractEventModel>();
             PrepareTupleTypes();
             PrepareFunctions(true, CallFunctions);
             PrepareFunctions(false, SendFunctions);
+            PrepareEvents();
         }
+        private void PrepareEvents()
+        {
 
+            foreach (var eventModel in _contractAbi.Events)
+            {
+                
+                Events.Add(new AbiContractEventModel()
+                {
+                    Name = eventModel.Name,
+                    SystemName = GetValidPropertyName(eventModel.Name) + eventModel.Sha3Signature.Substring(0,8),
+                    Parameters = eventModel.InputParameters.Select(t => new AbiContractParameterModel()
+                    {
+                        Name = GetValidPropertyName(t.Name),
+                        Order = t.Order,
+                        Indexed = t.Indexed,
+                        Type = t.Type,
+                        SystemType = GetSystemTypeName(t.ABIType, t.InternalType)
+                    }).ToArray(),
+                });
+            }
+            
+        }
+        
         private void PrepareFunctions(bool isConstants, List<AbiContractFunctionModel> source)
         {
             var constFunctions = _contractAbi.Functions.Where(t => t.Constant == isConstants).ToList();
@@ -45,7 +70,7 @@ namespace EthWrapGenerator.ABI
                 source.Add(new AbiContractFunctionModel()
                 {
                     Name = function.Name,
-                    ShaSignature = function.Sha3Signature,
+                    ShaSignature = function.Sha3Signature.ToLower(),
                     SystemName = GetValidPropertyName(function.Name) + function.Sha3Signature,
                     NeedRequest = needRequest,
                     RequestModel = function.InputParameters.Select(t => new AbiContractParameterModel()
