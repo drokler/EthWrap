@@ -4,35 +4,13 @@ namespace EthWrapGenerator.Solidity
 {
     
     public class SolidityInterfaceModel
-    {
+    { 
         public string Name { get; set; }
-        public bool IsLibrary { get; set; }
-        public List<SolidityContractStructModel> Structures { get; set; }
-        public SolidityInterfaceModel()
-        {
-            Structures = new List<SolidityContractStructModel>();
-        }
-    }
-
-    
-    public class SolidityContractModel
-    {
-        public string Name { get; set; }
-        public bool IsAbstract { get; set; }
-        public List<SolidityContractModel> IsImplement { get; set; } 
-        public List<SolidityContractPropertyModel> ContractProperties { get; set; }
-        public List<SolidityContractStructModel> Structures { get; set; }
-
-        public SolidityContractModel()
-        {
-            IsImplement = new List<SolidityContractModel>();
-            ContractProperties = new List<SolidityContractPropertyModel>();
-            Structures = new List<SolidityContractStructModel>();
-        }
     }
 
     public class SolidityContractStructModel
     {
+        public string ContractName { get; set; }
         public string Name { get; set; }
         public List<SolidityContractPropertyModel> Properties { get; set; }
 
@@ -41,17 +19,27 @@ namespace EthWrapGenerator.Solidity
             Properties = new List<SolidityContractPropertyModel>();
         }
     }
-    
 
     public class SolidityContractPropertyModel
     {
         public string Name { get; set; }
-        public string Type { get; set; }
-        
+        public SolidityParser.TypeNameContext Type { get; set; }
+        public string EvaluatedType => "string";
+
+    }
+    
+    public class SolidityContractModel
+    {
+        public string Name { get; set; }
+        public bool IsAbstract { get; set; }
+        public List<string> IsImplement { get; set; } 
+        public List<SolidityContractPropertyModel> ContractProperties { get; set; }
+
+        public SolidityContractModel()
+        {
+            IsImplement = new List<string>();
+            ContractProperties = new List<SolidityContractPropertyModel>();
+        }
     }
 
-    public class SolidityContractArrayPropertyModel
-    {
-        public int Size { get; set; } // -1 dynamic;
-    }
 }

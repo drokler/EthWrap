@@ -40,20 +40,17 @@ namespace EthWrapGenerator
                     };
                     if (solFolders.TryGetValue(folder, out var sFiles))
                     {
-                        foreach (var contractText in sFiles)
-                        {
-                            var content = contractText.GetText(context.CancellationToken);
-                            solidityContext.AddFile(content.ToString());
-                        }
+                        solidityContext.AddFiles(sFiles.Select(x => x.GetText(context.CancellationToken).ToString()).ToList());
                         
-                    }
-                    var solTemplate = new SolidityContractTemplate() 
-                    {
-                        Context = solidityContext
-                    };
+                        var solTemplate = new SolidityContractTemplate() 
+                        {
+                            Context = solidityContext
+                        };
                     
-                    var solSource = Format(solTemplate.TransformText());
-                    context.AddSource($"{folder}storage.g.cs", solSource);
+                        var solSource = Format(solTemplate.TransformText());
+                        context.AddSource($"{folder}storage.g.cs", solSource);
+                    }
+                   
 
                     if (abiFolders.TryGetValue(folder, out var aFiles))
                     {
@@ -84,7 +81,7 @@ namespace EthWrapGenerator
 
             catch (Exception e)
             {
-                File.WriteAllText("d:/testabierr", e.Message + e.InnerException?.Message);
+                File.WriteAllText("d:/testabierr", e.Message + e.StackTrace + e.InnerException?.Message);
                 throw e;
             }
 

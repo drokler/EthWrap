@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace EthWrapGenerator.Solidity
+namespace EthWrapGenerator.Solidity.Visitors
 {
     public class SolidityImportVisitor : SolidityBaseVisitor<List<string>>
     {

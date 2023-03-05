@@ -11,21 +11,60 @@ using Nethereum.Web3;
 
 namespace <#= Context.Namespace #>
 {
-    <#foreach (var contract in Context.Contracts) {#>
-        public class Solidity<#= contract.Name #> {
-            <#foreach (var structure in contract.Structures) {#>
-                    public class <#= structure.Name #> {
-                         <#foreach (var property in structure.Properties) {#>
-                               public <#= property.Type #> <#= property.Name #> {get;set;}
-                         <#}#>
-                    }
-            <#}#>
 
-            <#foreach (var property in contract.ContractProperties) {#>
-                               public <#= property.Type #> <#= property.Name #> {get;set;}
-            <#}#>
+    public class Solidity<#= Context.Contract.Name #> {
+        
+        private Solidity<#= Context.Contract.Name #>Loader _loader;
+        private Solidity<#= Context.Contract.Name #>Configuration _configuration;
+
+        public Solidity<#= Context.Contract.Name #>(){
+            _loader = new Solidity<#= Context.Contract.Name #>Loader();
+            _configuration = new Solidity<#= Context.Contract.Name #>Configuration();
         }
-    <#}#>
+
+        <#foreach (var property in Context.Contract.ContractProperties) {#>
+             public <#= property.EvaluatedType #> <#= property.Name #> {get;set;}
+        <#}#>
+
+        public Solidity<#= Context.Contract.Name #>ConfigurationBuilder Configure() {
+            return new Solidity<#= Context.Contract.Name #>ConfigurationBuilder(_configuration);
+        }
+    }
+
+    internal class Solidity<#= Context.Contract.Name #>Loader {
+
+    }
+
+    public class Solidity<#= Context.Contract.Name #>Configuration {
+  
+        <#foreach (var property in Context.Contract.ContractProperties) {#>
+             public bool <#= property.Name #>_load {get;set;}
+             public bool <#= property.Name #>_forceload {get;set;}
+        <#}#>
+    }
+
+    public class Solidity<#= Context.Contract.Name #>ConfigurationBuilder {
+ 
+        public Solidity<#= Context.Contract.Name #>Configuration Configuration { get; }
+
+        public Solidity<#= Context.Contract.Name #>ConfigurationBuilder(Solidity<#= Context.Contract.Name #>Configuration configuration){
+            Configuration = configuration;
+        }
+    }
+
+    public static class Solidity<#= Context.Contract.Name #>ConfigurationExt {
+        
+        <#foreach (var property in Context.Contract.ContractProperties) {#>
+             public static Solidity<#= Context.Contract.Name #>ConfigurationBuilder  Load<#= property.Name #>
+                            (this Solidity<#= Context.Contract.Name #>ConfigurationBuilder configurationBuilder, bool force = false){
+                configurationBuilder.Configuration.<#= property.Name #>_load = true;
+                configurationBuilder.Configuration.<#= property.Name #>_forceload = force;
+                return configurationBuilder;
+             }
+        <#}#>
+
+    }
+    
   
 }
 <#+

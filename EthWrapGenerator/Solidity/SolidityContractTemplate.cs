@@ -35,109 +35,221 @@ namespace EthWrapGenerator.Solidity
             
             #line default
             #line hidden
-            this.Write("\r\n{\r\n    ");
-            
-            #line 14 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\Solidity\SolidityContractTemplate.tt"
-foreach (var contract in Context.Contracts) {
-            
-            #line default
-            #line hidden
-            this.Write("        public class Solidity");
+            this.Write("\r\n{\r\n\r\n    public class Solidity");
             
             #line 15 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\Solidity\SolidityContractTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(contract.Name));
+            this.Write(this.ToStringHelper.ToStringWithCulture(Context.Contract.Name));
             
             #line default
             #line hidden
-            this.Write(" {\r\n            ");
-            
-            #line 16 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\Solidity\SolidityContractTemplate.tt"
-foreach (var structure in contract.Structures) {
-            
-            #line default
-            #line hidden
-            this.Write("                    public class ");
+            this.Write(" {\r\n        \r\n        private Solidity");
             
             #line 17 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\Solidity\SolidityContractTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(structure.Name));
+            this.Write(this.ToStringHelper.ToStringWithCulture(Context.Contract.Name));
             
             #line default
             #line hidden
-            this.Write(" {\r\n                         ");
+            this.Write("Loader _loader;\r\n        private Solidity");
             
             #line 18 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\Solidity\SolidityContractTemplate.tt"
-foreach (var property in structure.Properties) {
+            this.Write(this.ToStringHelper.ToStringWithCulture(Context.Contract.Name));
             
             #line default
             #line hidden
-            this.Write("                               public ");
-            
-            #line 19 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\Solidity\SolidityContractTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(property.Type));
-            
-            #line default
-            #line hidden
-            this.Write(" ");
-            
-            #line 19 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\Solidity\SolidityContractTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(property.Name));
-            
-            #line default
-            #line hidden
-            this.Write(" {get;set;}\r\n                         ");
+            this.Write("Configuration _configuration;\r\n\r\n        public Solidity");
             
             #line 20 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\Solidity\SolidityContractTemplate.tt"
-}
+            this.Write(this.ToStringHelper.ToStringWithCulture(Context.Contract.Name));
             
             #line default
             #line hidden
-            this.Write("                    }\r\n            ");
+            this.Write("(){\r\n            _loader = new Solidity");
+            
+            #line 21 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\Solidity\SolidityContractTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Context.Contract.Name));
+            
+            #line default
+            #line hidden
+            this.Write("Loader();\r\n            _configuration = new Solidity");
             
             #line 22 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\Solidity\SolidityContractTemplate.tt"
-}
+            this.Write(this.ToStringHelper.ToStringWithCulture(Context.Contract.Name));
             
             #line default
             #line hidden
-            this.Write("\r\n            ");
-            
-            #line 24 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\Solidity\SolidityContractTemplate.tt"
-foreach (var property in contract.ContractProperties) {
-            
-            #line default
-            #line hidden
-            this.Write("                               public ");
+            this.Write("Configuration();\r\n        }\r\n\r\n        ");
             
             #line 25 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\Solidity\SolidityContractTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(property.Type));
+foreach (var property in Context.Contract.ContractProperties) {
+            
+            #line default
+            #line hidden
+            this.Write("             public ");
+            
+            #line 26 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\Solidity\SolidityContractTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(property.EvaluatedType));
             
             #line default
             #line hidden
             this.Write(" ");
             
-            #line 25 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\Solidity\SolidityContractTemplate.tt"
+            #line 26 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\Solidity\SolidityContractTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(property.Name));
             
             #line default
             #line hidden
-            this.Write(" {get;set;}\r\n            ");
+            this.Write(" {get;set;}\r\n        ");
             
-            #line 26 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\Solidity\SolidityContractTemplate.tt"
+            #line 27 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\Solidity\SolidityContractTemplate.tt"
 }
             
             #line default
             #line hidden
-            this.Write("        }\r\n    ");
+            this.Write("\r\n        public Solidity");
             
-            #line 28 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\Solidity\SolidityContractTemplate.tt"
+            #line 29 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\Solidity\SolidityContractTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Context.Contract.Name));
+            
+            #line default
+            #line hidden
+            this.Write("ConfigurationBuilder Configure() {\r\n            return new Solidity");
+            
+            #line 30 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\Solidity\SolidityContractTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Context.Contract.Name));
+            
+            #line default
+            #line hidden
+            this.Write("ConfigurationBuilder(_configuration);\r\n        }\r\n    }\r\n\r\n    internal class Solidity");
+            
+            #line 34 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\Solidity\SolidityContractTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Context.Contract.Name));
+            
+            #line default
+            #line hidden
+            this.Write("Loader {\r\n\r\n    }\r\n\r\n    public class Solidity");
+            
+            #line 38 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\Solidity\SolidityContractTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Context.Contract.Name));
+            
+            #line default
+            #line hidden
+            this.Write("Configuration {\r\n  \r\n        ");
+            
+            #line 40 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\Solidity\SolidityContractTemplate.tt"
+foreach (var property in Context.Contract.ContractProperties) {
+            
+            #line default
+            #line hidden
+            this.Write("             public bool ");
+            
+            #line 41 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\Solidity\SolidityContractTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(property.Name));
+            
+            #line default
+            #line hidden
+            this.Write("_load {get;set;}\r\n             public bool ");
+            
+            #line 42 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\Solidity\SolidityContractTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(property.Name));
+            
+            #line default
+            #line hidden
+            this.Write("_forceload {get;set;}\r\n        ");
+            
+            #line 43 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\Solidity\SolidityContractTemplate.tt"
 }
             
             #line default
             #line hidden
-            this.Write("  \r\n}\r\n");
+            this.Write("    }\r\n\r\n    public class Solidity");
+            
+            #line 46 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\Solidity\SolidityContractTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Context.Contract.Name));
+            
+            #line default
+            #line hidden
+            this.Write("ConfigurationBuilder {\r\n \r\n        public Solidity");
+            
+            #line 48 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\Solidity\SolidityContractTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Context.Contract.Name));
+            
+            #line default
+            #line hidden
+            this.Write("Configuration Configuration { get; }\r\n\r\n        public Solidity");
+            
+            #line 50 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\Solidity\SolidityContractTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Context.Contract.Name));
+            
+            #line default
+            #line hidden
+            this.Write("ConfigurationBuilder(Solidity");
+            
+            #line 50 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\Solidity\SolidityContractTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Context.Contract.Name));
+            
+            #line default
+            #line hidden
+            this.Write("Configuration configuration){\r\n            Configuration = configuration;\r\n        }\r\n    }\r\n\r\n    public static class Solidity");
+            
+            #line 55 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\Solidity\SolidityContractTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Context.Contract.Name));
+            
+            #line default
+            #line hidden
+            this.Write("ConfigurationExt {\r\n        \r\n        ");
+            
+            #line 57 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\Solidity\SolidityContractTemplate.tt"
+foreach (var property in Context.Contract.ContractProperties) {
+            
+            #line default
+            #line hidden
+            this.Write("             public static Solidity");
+            
+            #line 58 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\Solidity\SolidityContractTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Context.Contract.Name));
+            
+            #line default
+            #line hidden
+            this.Write("ConfigurationBuilder  Load");
+            
+            #line 58 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\Solidity\SolidityContractTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(property.Name));
+            
+            #line default
+            #line hidden
+            this.Write("\r\n                            (this Solidity");
+            
+            #line 59 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\Solidity\SolidityContractTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Context.Contract.Name));
+            
+            #line default
+            #line hidden
+            this.Write("ConfigurationBuilder configurationBuilder, bool force = false){\r\n                configurationBuilder.Configuration.");
+            
+            #line 60 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\Solidity\SolidityContractTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(property.Name));
+            
+            #line default
+            #line hidden
+            this.Write("_load = true;\r\n                configurationBuilder.Configuration.");
+            
+            #line 61 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\Solidity\SolidityContractTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(property.Name));
+            
+            #line default
+            #line hidden
+            this.Write("_forceload = force;\r\n                return configurationBuilder;\r\n             }\r\n        ");
+            
+            #line 64 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\Solidity\SolidityContractTemplate.tt"
+}
+            
+            #line default
+            #line hidden
+            this.Write("\r\n    }\r\n    \r\n  \r\n}\r\n");
             return this.GenerationEnvironment.ToString();
         }
         
-        #line 31 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\Solidity\SolidityContractTemplate.tt"
+        #line 70 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\Solidity\SolidityContractTemplate.tt"
 
 
     public SolidityContractContext Context { get; set; }
