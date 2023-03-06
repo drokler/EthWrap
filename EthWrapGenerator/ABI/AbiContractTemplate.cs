@@ -49,7 +49,7 @@ namespace EthWrapGenerator.ABI
             
             #line default
             #line hidden
-            this.Write("(Web3 web3, string address){\r\n            _web3 = web3;\r\n            _address = address;\r\n            EvaluateEventHandler();\r\n        }\r\n        #region structures\r\n\r\n        ");
+            this.Write("(Web3 web3, string address){\r\n            _web3 = web3;\r\n            _address = address.ToLower();\r\n            EvaluateEventHandler();\r\n        }\r\n        #region structures\r\n\r\n        ");
             
             #line 26 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\ABI\AbiContractTemplate.tt"
 foreach (var abiStruct in Context.Structs) {
@@ -147,450 +147,450 @@ foreach (var eventModel in Context.Events) {
             
             #line default
             #line hidden
-            this.Write("        }\r\n\r\n        public void ParseEvents(FilterLog[] logs, List<IEventLog> events) {\r\n             ");
+            this.Write("        }\r\n\r\n        public void ParseEvents(FilterLog[] logs, List<IEventLog> events) {\r\n             var newLog = logs.Where(t => t.Address == _address).ToArray();\r\n             ");
             
-            #line 48 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\ABI\AbiContractTemplate.tt"
+            #line 49 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\ABI\AbiContractTemplate.tt"
 foreach (var eventModel in Context.Events) {
             
             #line default
             #line hidden
             this.Write("                events.AddRange(_");
             
-            #line 49 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\ABI\AbiContractTemplate.tt"
+            #line 50 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\ABI\AbiContractTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(eventModel.SystemName));
             
             #line default
             #line hidden
-            this.Write("EventHandler.DecodeAllEventsForEvent(logs));      \r\n            ");
+            this.Write("EventHandler.DecodeAllEventsForEvent(newLog));      \r\n            ");
             
-            #line 50 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\ABI\AbiContractTemplate.tt"
+            #line 51 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\ABI\AbiContractTemplate.tt"
 }
             
             #line default
             #line hidden
             this.Write("        }\r\n      \r\n        ");
             
-            #line 53 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\ABI\AbiContractTemplate.tt"
+            #line 54 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\ABI\AbiContractTemplate.tt"
 foreach (var eventModel in Context.Events) {
             
             #line default
             #line hidden
             this.Write("            private Event<");
             
-            #line 54 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\ABI\AbiContractTemplate.tt"
+            #line 55 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\ABI\AbiContractTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(eventModel.SystemName));
             
             #line default
             #line hidden
             this.Write("Event> _");
             
-            #line 54 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\ABI\AbiContractTemplate.tt"
+            #line 55 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\ABI\AbiContractTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(eventModel.SystemName));
             
             #line default
             #line hidden
             this.Write("EventHandler;\r\n\r\n            [Event(\"");
             
-            #line 56 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\ABI\AbiContractTemplate.tt"
+            #line 57 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\ABI\AbiContractTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(eventModel.Name));
             
             #line default
             #line hidden
             this.Write("\")]\r\n            public class ");
             
-            #line 57 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\ABI\AbiContractTemplate.tt"
+            #line 58 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\ABI\AbiContractTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(eventModel.SystemName));
             
             #line default
             #line hidden
             this.Write("Event : IEventDTO\r\n            {\r\n                ");
             
-            #line 59 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\ABI\AbiContractTemplate.tt"
+            #line 60 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\ABI\AbiContractTemplate.tt"
 foreach (var property in eventModel.Parameters) {
             
             #line default
             #line hidden
             this.Write("\r\n                    [Parameter(\"");
             
-            #line 61 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\ABI\AbiContractTemplate.tt"
+            #line 62 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\ABI\AbiContractTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(property.Type));
             
             #line default
             #line hidden
             this.Write("\", null, ");
             
-            #line 61 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\ABI\AbiContractTemplate.tt"
+            #line 62 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\ABI\AbiContractTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(property.Order));
             
             #line default
             #line hidden
             this.Write(", ");
             
-            #line 61 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\ABI\AbiContractTemplate.tt"
+            #line 62 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\ABI\AbiContractTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(property.Indexed.ToString().ToLower()));
             
             #line default
             #line hidden
             this.Write(")]\r\n                    public ");
             
-            #line 62 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\ABI\AbiContractTemplate.tt"
+            #line 63 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\ABI\AbiContractTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(property.SystemType));
             
             #line default
             #line hidden
             this.Write(" ");
             
-            #line 62 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\ABI\AbiContractTemplate.tt"
+            #line 63 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\ABI\AbiContractTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(property.Name));
             
             #line default
             #line hidden
             this.Write(" {get; set;}\r\n                ");
             
-            #line 63 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\ABI\AbiContractTemplate.tt"
+            #line 64 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\ABI\AbiContractTemplate.tt"
 }
             
             #line default
             #line hidden
             this.Write("            }\r\n         ");
             
-            #line 65 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\ABI\AbiContractTemplate.tt"
+            #line 66 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\ABI\AbiContractTemplate.tt"
 }
             
             #line default
             #line hidden
             this.Write("\r\n\r\n         #endregion\r\n\r\n        #region call functions\r\n\r\n        ");
             
-            #line 72 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\ABI\AbiContractTemplate.tt"
+            #line 73 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\ABI\AbiContractTemplate.tt"
 foreach (var callFunc in Context.CallFunctions) {
             
             #line default
             #line hidden
             this.Write("            \r\n            [Function(\"");
             
-            #line 74 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\ABI\AbiContractTemplate.tt"
+            #line 75 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\ABI\AbiContractTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(callFunc.Name));
             
             #line default
             #line hidden
             this.Write("\")]\r\n            public class ");
             
-            #line 75 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\ABI\AbiContractTemplate.tt"
+            #line 76 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\ABI\AbiContractTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(callFunc.SystemName));
             
             #line default
             #line hidden
             this.Write("Request : FunctionMessage\r\n            {\r\n               ");
             
-            #line 77 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\ABI\AbiContractTemplate.tt"
+            #line 78 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\ABI\AbiContractTemplate.tt"
 foreach (var property in callFunc.RequestModel) {
             
             #line default
             #line hidden
             this.Write("\r\n                    [Parameter(\"");
             
-            #line 79 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\ABI\AbiContractTemplate.tt"
+            #line 80 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\ABI\AbiContractTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(property.Type));
             
             #line default
             #line hidden
             this.Write("\", null, ");
             
-            #line 79 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\ABI\AbiContractTemplate.tt"
+            #line 80 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\ABI\AbiContractTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(property.Order));
             
             #line default
             #line hidden
             this.Write(", ");
             
-            #line 79 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\ABI\AbiContractTemplate.tt"
+            #line 80 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\ABI\AbiContractTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(property.Indexed.ToString().ToLower()));
             
             #line default
             #line hidden
             this.Write(")]\r\n                    public ");
             
-            #line 80 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\ABI\AbiContractTemplate.tt"
+            #line 81 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\ABI\AbiContractTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(property.SystemType));
             
             #line default
             #line hidden
             this.Write(" ");
             
-            #line 80 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\ABI\AbiContractTemplate.tt"
+            #line 81 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\ABI\AbiContractTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(property.Name));
             
             #line default
             #line hidden
             this.Write(" {get; set;}\r\n                ");
             
-            #line 81 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\ABI\AbiContractTemplate.tt"
+            #line 82 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\ABI\AbiContractTemplate.tt"
 }
             
             #line default
             #line hidden
             this.Write("            }\r\n            \r\n\r\n            [FunctionOutput]\r\n            public class ");
             
-            #line 86 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\ABI\AbiContractTemplate.tt"
+            #line 87 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\ABI\AbiContractTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(callFunc.SystemName));
             
             #line default
             #line hidden
             this.Write("Response : IFunctionOutputDTO\r\n            {\r\n                ");
             
-            #line 88 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\ABI\AbiContractTemplate.tt"
+            #line 89 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\ABI\AbiContractTemplate.tt"
 foreach (var property in callFunc.ResponseModel) {
             
             #line default
             #line hidden
             this.Write("\r\n                    [Parameter(\"");
             
-            #line 90 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\ABI\AbiContractTemplate.tt"
+            #line 91 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\ABI\AbiContractTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(property.Type));
             
             #line default
             #line hidden
             this.Write("\", null, ");
             
-            #line 90 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\ABI\AbiContractTemplate.tt"
+            #line 91 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\ABI\AbiContractTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(property.Order));
             
             #line default
             #line hidden
             this.Write(", ");
             
-            #line 90 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\ABI\AbiContractTemplate.tt"
+            #line 91 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\ABI\AbiContractTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(property.Indexed.ToString().ToLower()));
             
             #line default
             #line hidden
             this.Write(")]\r\n                    public ");
             
-            #line 91 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\ABI\AbiContractTemplate.tt"
+            #line 92 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\ABI\AbiContractTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(property.SystemType));
             
             #line default
             #line hidden
             this.Write(" ");
             
-            #line 91 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\ABI\AbiContractTemplate.tt"
+            #line 92 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\ABI\AbiContractTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(property.Name));
             
             #line default
             #line hidden
             this.Write(" {get; set;}\r\n                ");
             
-            #line 92 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\ABI\AbiContractTemplate.tt"
+            #line 93 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\ABI\AbiContractTemplate.tt"
 }
             
             #line default
             #line hidden
             this.Write("            }\r\n            \r\n            public async Task<");
             
-            #line 95 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\ABI\AbiContractTemplate.tt"
+            #line 96 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\ABI\AbiContractTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(callFunc.SystemName));
             
             #line default
             #line hidden
             this.Write("Response> ");
             
-            #line 95 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\ABI\AbiContractTemplate.tt"
+            #line 96 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\ABI\AbiContractTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(callFunc.SystemName));
             
             #line default
             #line hidden
             this.Write("(");
             
-            #line 95 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\ABI\AbiContractTemplate.tt"
+            #line 96 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\ABI\AbiContractTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(callFunc.SystemName));
             
             #line default
             #line hidden
             this.Write("Request request) {\r\n\r\n                var handler = _web3.Eth.GetContractQueryHandler<");
             
-            #line 97 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\ABI\AbiContractTemplate.tt"
+            #line 98 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\ABI\AbiContractTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(callFunc.SystemName));
             
             #line default
             #line hidden
             this.Write("Request>();\r\n                var result = await handler.QueryDeserializingToObjectAsync<");
             
-            #line 98 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\ABI\AbiContractTemplate.tt"
+            #line 99 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\ABI\AbiContractTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(callFunc.SystemName));
             
             #line default
             #line hidden
             this.Write("Response>(request, _address);\r\n                return result;\r\n            }\r\n\r\n\r\n        ");
             
-            #line 103 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\ABI\AbiContractTemplate.tt"
+            #line 104 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\ABI\AbiContractTemplate.tt"
 }
             
             #line default
             #line hidden
             this.Write("\r\n        #endregion\r\n\r\n        #region send functions\r\n\r\n             private static Dictionary<string, FunctionBuilderBase> _builders = new Dictionary<string, FunctionBuilderBase>()\r\n            {\r\n               ");
             
-            #line 111 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\ABI\AbiContractTemplate.tt"
+            #line 112 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\ABI\AbiContractTemplate.tt"
 foreach (var callFunc in Context.SendFunctions) {
             
             #line default
             #line hidden
             this.Write("                    { \"");
             
-            #line 112 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\ABI\AbiContractTemplate.tt"
+            #line 113 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\ABI\AbiContractTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(callFunc.ShaSignature));
             
             #line default
             #line hidden
             this.Write("\", new FunctionBuilder<");
             
-            #line 112 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\ABI\AbiContractTemplate.tt"
+            #line 113 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\ABI\AbiContractTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(callFunc.SystemName));
             
             #line default
             #line hidden
             this.Write("Request>(null)},\r\n               ");
             
-            #line 113 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\ABI\AbiContractTemplate.tt"
+            #line 114 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\ABI\AbiContractTemplate.tt"
 }
             
             #line default
             #line hidden
             this.Write("            };\r\n\r\n\r\n            private static Dictionary<string, Func<string, FunctionMessage>> _buildAction = new()\r\n            {\r\n                  ");
             
-            #line 119 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\ABI\AbiContractTemplate.tt"
+            #line 120 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\ABI\AbiContractTemplate.tt"
 foreach (var callFunc in Context.SendFunctions) {
             
             #line default
             #line hidden
             this.Write("                    { \"");
             
-            #line 120 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\ABI\AbiContractTemplate.tt"
+            #line 121 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\ABI\AbiContractTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(callFunc.ShaSignature));
             
             #line default
             #line hidden
             this.Write("\", (str) =>\r\n                        {\r\n                            var builder = (FunctionBuilder<");
             
-            #line 122 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\ABI\AbiContractTemplate.tt"
+            #line 123 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\ABI\AbiContractTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(callFunc.SystemName));
             
             #line default
             #line hidden
             this.Write("Request>)_builders[\"");
             
-            #line 122 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\ABI\AbiContractTemplate.tt"
+            #line 123 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\ABI\AbiContractTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(callFunc.ShaSignature));
             
             #line default
             #line hidden
             this.Write("\"];\r\n                            return builder.DecodeFunctionInput(new ");
             
-            #line 123 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\ABI\AbiContractTemplate.tt"
+            #line 124 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\ABI\AbiContractTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(callFunc.SystemName));
             
             #line default
             #line hidden
             this.Write("Request(), str);\r\n                        }\r\n                    },\r\n                  ");
             
-            #line 126 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\ABI\AbiContractTemplate.tt"
+            #line 127 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\ABI\AbiContractTemplate.tt"
 }
             
             #line default
             #line hidden
             this.Write("            };\r\n\r\n                public async Task<List<FunctionMessage>> GetAllFunctions(ulong blockBefore, CancellationToken cancellationToken = default)\r\n                {\r\n                    \r\n                    var toBlock = (ulong) (await _web3.Eth.Blocks.GetBlockNumber.SendRequestAsync()).Value;\r\n                    var fromBlock = toBlock - blockBefore;\r\n                    \r\n                   return await GetAllFunctions(fromBlock, toBlock, cancellationToken);\r\n               }\r\n\r\n             public async Task<List<FunctionMessage>> GetAllFunctions(ulong fromBlock, ulong toBlock, CancellationToken cancellationToken = default)\r\n                {\r\n                    var ret = new List<FunctionMessage>();\r\n                                        \r\n                    var processor = _web3.Processing.Blocks.CreateBlockProcessor(steps =>\r\n                    {\r\n                        steps.TransactionStep.SetMatchCriteria(t => t.Transaction.IsTo(_address));\r\n                        steps.TransactionStep.AddSynchronousProcessorHandler(t =>\r\n                        {\r\n                            var txHex = t.Transaction.Input.Substring(2, 8);\r\n                            ret.Add(_buildAction[txHex](t.Transaction.Input));\r\n                        });\r\n\r\n                    });\r\n                    await processor.ExecuteAsync(new BigInteger(toBlock), cancellationToken, new BigInteger(fromBlock));\r\n\r\n                    return ret;\r\n               }\r\n\r\n            ");
             
-            #line 157 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\ABI\AbiContractTemplate.tt"
+            #line 158 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\ABI\AbiContractTemplate.tt"
 foreach (var callFunc in Context.SendFunctions) {
             
             #line default
             #line hidden
             this.Write("            \r\n            [Function(\"");
             
-            #line 159 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\ABI\AbiContractTemplate.tt"
+            #line 160 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\ABI\AbiContractTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(callFunc.Name));
             
             #line default
             #line hidden
             this.Write("\")]\r\n            public class ");
             
-            #line 160 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\ABI\AbiContractTemplate.tt"
+            #line 161 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\ABI\AbiContractTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(callFunc.SystemName));
             
             #line default
             #line hidden
             this.Write("Request : FunctionMessage\r\n            {\r\n               ");
             
-            #line 162 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\ABI\AbiContractTemplate.tt"
+            #line 163 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\ABI\AbiContractTemplate.tt"
 foreach (var property in callFunc.RequestModel) {
             
             #line default
             #line hidden
             this.Write("\r\n                    [Parameter(\"");
             
-            #line 164 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\ABI\AbiContractTemplate.tt"
+            #line 165 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\ABI\AbiContractTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(property.Type));
             
             #line default
             #line hidden
             this.Write("\", null, ");
             
-            #line 164 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\ABI\AbiContractTemplate.tt"
+            #line 165 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\ABI\AbiContractTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(property.Order));
             
             #line default
             #line hidden
             this.Write(", ");
             
-            #line 164 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\ABI\AbiContractTemplate.tt"
+            #line 165 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\ABI\AbiContractTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(property.Indexed.ToString().ToLower()));
             
             #line default
             #line hidden
             this.Write(")]\r\n                    public ");
             
-            #line 165 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\ABI\AbiContractTemplate.tt"
+            #line 166 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\ABI\AbiContractTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(property.SystemType));
             
             #line default
             #line hidden
             this.Write(" ");
             
-            #line 165 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\ABI\AbiContractTemplate.tt"
+            #line 166 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\ABI\AbiContractTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(property.Name));
             
             #line default
             #line hidden
             this.Write(" {get; set;}\r\n                ");
             
-            #line 166 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\ABI\AbiContractTemplate.tt"
+            #line 167 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\ABI\AbiContractTemplate.tt"
 }
             
             #line default
             #line hidden
             this.Write("            }\r\n                        \r\n            public async Task<TransactionReceipt> ");
             
-            #line 169 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\ABI\AbiContractTemplate.tt"
+            #line 170 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\ABI\AbiContractTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(callFunc.SystemName));
             
             #line default
             #line hidden
             this.Write("(");
             
-            #line 169 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\ABI\AbiContractTemplate.tt"
+            #line 170 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\ABI\AbiContractTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(callFunc.SystemName));
             
             #line default
             #line hidden
             this.Write("Request request) {\r\n\r\n                var handler = _web3.Eth.GetContractTransactionHandler<");
             
-            #line 171 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\ABI\AbiContractTemplate.tt"
+            #line 172 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\ABI\AbiContractTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(callFunc.SystemName));
             
             #line default
             #line hidden
             this.Write("Request>();\r\n                var receipt = await handler.SendRequestAndWaitForReceiptAsync(_address, request);\r\n                return receipt;\r\n            }\r\n\r\n\r\n        ");
             
-            #line 177 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\ABI\AbiContractTemplate.tt"
+            #line 178 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\ABI\AbiContractTemplate.tt"
 }
             
             #line default
@@ -599,7 +599,7 @@ foreach (var property in callFunc.RequestModel) {
             return this.GenerationEnvironment.ToString();
         }
         
-        #line 182 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\ABI\AbiContractTemplate.tt"
+        #line 183 "C:\Users\TrembovetskiNA\source\repos\EthWrap\EthWrapGenerator\ABI\AbiContractTemplate.tt"
 
 
     public AbiContractContext Context { get; set; }

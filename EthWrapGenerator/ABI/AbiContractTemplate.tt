@@ -18,7 +18,7 @@ namespace <#= Context.ContractModel.Namespace #>
 
         public Abi<#= Context.ContractModel.ContractName #>(Web3 web3, string address){
             _web3 = web3;
-            _address = address;
+            _address = address.ToLower();
             EvaluateEventHandler();
         }
         #region structures
@@ -45,8 +45,9 @@ namespace <#= Context.ContractModel.Namespace #>
         }
 
         public void ParseEvents(FilterLog[] logs, List<IEventLog> events) {
+             var newLog = logs.Where(t => t.Address == _address).ToArray();
              <#foreach (var eventModel in Context.Events) {#>
-                events.AddRange(_<#= eventModel.SystemName #>EventHandler.DecodeAllEventsForEvent(logs));      
+                events.AddRange(_<#= eventModel.SystemName #>EventHandler.DecodeAllEventsForEvent(newLog));      
             <#}#>
         }
       
